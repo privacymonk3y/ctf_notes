@@ -7,6 +7,7 @@ I'll walk through how I approached this challenge and how I finally figured out 
 
 ```plaintext
 pcap file: moxa_login.pcapng
+decoder.js: the nodejs file I created to solve the challenge (This version solves it)
 ```
 
 Starting this challenge you are given the moxa_login pcap file.
@@ -169,3 +170,14 @@ byte_array = bytearray.fromhex(decoded_hex)
 print("DawgCTF{enc0ding" + byte_array.decode())
 
 ```
+
+In this script I set m,n as empty list.
+I then start a loop function to reverse the xor using the known sha256sum value of md.
+I imported the scripts ascii variable because it's unique and also the hex_h.
+
+Once we know the value of m we can reverse the toString(16) function and finally use bytearray to reverse the hex back into ascii.
+Thus giving us the full string to the challenge.
+
+
+I really enjoyed this challenge as it let me attack a new programming language.
+I guess taking the time to learn python and a little c++ has paided off :)
