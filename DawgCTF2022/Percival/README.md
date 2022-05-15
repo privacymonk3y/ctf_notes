@@ -12,15 +12,18 @@ pcap file: moxa_login.pcapng
 Starting this challenge you are given the moxa_login pcap file.
 Opening this in wireshark,
 
-*picture holder*
+![image](https://user-images.githubusercontent.com/73809165/168457388-884bc8ee-583a-447a-b2cf-6649a4205673.png)
 
 You can see a lot of TCP and HTTP protocols here. If we follow the tcp stream and goto Stream 7 we can see clear text of the login and welcome screen.
 Hardcoded into the html is the first half of the flag. `Welcome! DawgCTF{enc0ding`
 
-*picture holder*
+![image](https://user-images.githubusercontent.com/73809165/168457408-f7c4015a-b27a-465f-b6f5-165388b28730.png)
 
 After this I went to file -> export objects -> html.
 There are many files here so I clicked **Save All**
+
+![image](https://user-images.githubusercontent.com/73809165/168457416-c5be47f5-ed15-4480-a8fa-951090214402.png)
+
 
 I first loaded up apache after renaming the files.
 The mains ones being...
@@ -134,11 +137,18 @@ I rewrote the problem in python and this was the final solution.
 ```python
 #!/usr/bin/env python3
 import binascii
+import hashlib
+
 
 ascii_list = "01234567890123456789012345678901 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 
 hex_h = "0123456789abcdef"
-md = 'ad2801c358442b748106c294e458a1cfb08ef87365f4814568fa28ffff07d4fc'
+fakechallenge = b'1932836BC9FA6984B77B4F99A86A4F9F6261A9540D6032746B27F4CFF5CBD4D7'
+
+# sha256 value of fakechallenge cookie
+md = hashlib.sha256(fakechallenge).hexdigest()
+
+# Encoded Password
 encoded_string = '8c1564ad3b365204f537adfa99'
 decoded_hex = ''
 
@@ -157,4 +167,5 @@ for i in range(len(m)):
 # print(decoded_hex)
 byte_array = bytearray.fromhex(decoded_hex)
 print("DawgCTF{enc0ding" + byte_array.decode())
+
 ```
