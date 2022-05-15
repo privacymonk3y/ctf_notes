@@ -46,7 +46,7 @@ I removed any of the strings that matched `window.loginframe.` so the script wou
 I had never worked with .js or nodejs, this was a learning in progress lol. (One of the more interesting parts to this challenge)
 I quickly found how console.log() worked so I could interact with the script and started to reverse what it was doing.
 
-**Where I cost myself loads of time and pain**
+# Where I cost myself loads of time and pain
 
 *Jumping ahead to the part I didn't solve during the CTF but after with a nudge from the creator.*
 
@@ -63,7 +63,7 @@ The problem here is that the SHA256 function is a sha256sum function. It takes t
 Because I didn't have this I was never able to reverse the known username/password, but still managed to create and reverse my own user/password.
 Boy was that frustrating!
 
-**Back to the method and reversing the script**
+# Back to the method and reversing the script
 
 During my play with apache I ran burp. I could see that the clear text information wasn't being sent but first a client side encoding happened.
 Then you ended up with something simular to the data in the submission.txt file.
